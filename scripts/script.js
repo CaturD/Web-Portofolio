@@ -37,6 +37,40 @@ window.addEventListener('scroll', function () {
   });
 });
 
+// HAMBURGER MENU TOGGLE MOBILE
+var hamburger   = document.getElementById('nav-hamburger');
+var navMenuList = document.getElementById('nav-links');
+var navItems    = document.querySelectorAll('.nav-item');
+
+if (hamburger && navMenuList) {
+  hamburger.addEventListener('click', function () {
+    var isOpen = navMenuList.classList.toggle('is-open');
+    hamburger.classList.toggle('is-open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+}
+
+navItems.forEach(function (item) {
+  item.addEventListener('click', function () {
+    navMenuList.classList.remove('is-open');
+    hamburger.classList.remove('is-open');
+    hamburger.setAttribute('aria-expanded', 'false');
+  });
+});
+ 
+document.addEventListener('click', function (e) {
+  if (
+    navMenuList.classList.contains('is-open') &&
+    !navMenuList.contains(e.target) &&
+    !hamburger.contains(e.target)
+  ) {
+    navMenuList.classList.remove('is-open');
+    hamburger.classList.remove('is-open');
+    hamburger.setAttribute('aria-expanded', 'false');
+  }
+});
+ 
+
 // CONTACT FORM HANDLER
 var submitBtn = document.getElementById('btn-submit');
 
